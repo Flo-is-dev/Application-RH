@@ -4,7 +4,7 @@ import SelectField from "../components/ui/SelectField";
 import states from "../data/states";
 import departments from "../data/department";
 
-const CreateEmployee = () => {
+const Form = () => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -148,4 +148,4 @@ const CreateEmployee = () => {
   );
 };
 
-export default CreateEmployee;
+export default Form;
