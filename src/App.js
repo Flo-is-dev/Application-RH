@@ -50,7 +50,7 @@ const CreateEmployee = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-white shadow-md rounded-md">
+    <div className="max-w-md mx-auto my-8 p-4 bg-white border-2 rounded-lg border-orange-300 shadow-[0_0_2px_#fff,inset_0_0_2px_#fff,0_0_5px_#eb9282,0_0_15px_#eb9282,0_0_30px_#eb9282]">
       <h1 className="text-3xl font-bold text-center mb-4">HRnet</h1>
       <a
         href="/current-employees"
