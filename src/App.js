@@ -1,25 +1,151 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import InputField from "./components/ui/InputField.js";
+import SelectField from "./components/ui/SelectField";
+import states from "./data/states";
+import departments from "./data/department";
 
-function App() {
+const CreateEmployee = () => {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    dateOfBirth: "",
+    startDate: "",
+    street: "",
+    city: "",
+    state: "Alabama",
+    zipCode: "",
+    department: "Sales",
+  });
+
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.firstName) newErrors.firstName = "First Name is required";
+    if (!formData.lastName) newErrors.lastName = "Last Name is required";
+    if (!formData.dateOfBirth)
+      newErrors.dateOfBirth = "Date of Birth is required";
+    if (!formData.startDate) newErrors.startDate = "Start Date is required";
+    if (!formData.street) newErrors.street = "Street is required";
+    if (!formData.city) newErrors.city = "City is required";
+    if (!formData.zipCode) newErrors.zipCode = "Zip Code is required";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validate()) {
+      console.log("Employee data submitted: ", formData);
+      // Vous pouvez ajouter le code pour soumettre les données ici
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className="max-w-md mx-auto p-4 bg-white shadow-md rounded-md">
+      <h1 className="text-3xl font-bold text-center mb-4">HRnet</h1>
+      <a
+        href="/current-employees"
+        className="text-purple-600 hover:underline block text-center mb-4"
+      >
+        View Current Employees
+      </a>
+      <h2 className="text-xl font-semibold text-center mb-4">
+        Create Employee
+      </h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <InputField
+          label="First Name"
+          type="text"
+          name="firstName"
+          value={formData.firstName}
+          onChange={handleChange}
+          error={errors.firstName}
+        />
+        <InputField
+          label="Last Name"
+          type="text"
+          name="lastName"
+          value={formData.lastName}
+          onChange={handleChange}
+          error={errors.lastName}
+        />
+        <InputField
+          label="Date of Birth"
+          type="date"
+          name="dateOfBirth"
+          value={formData.dateOfBirth}
+          onChange={handleChange}
+          error={errors.dateOfBirth}
+        />
+        <InputField
+          label="Start Date"
+          type="date"
+          name="startDate"
+          value={formData.startDate}
+          onChange={handleChange}
+          error={errors.startDate}
+        />
+        <fieldset className="border border-gray-300 p-4 rounded-md">
+          <legend className="text-lg font-semibold">Address</legend>
+          <InputField
+            label="Street"
+            type="text"
+            name="street"
+            value={formData.street}
+            onChange={handleChange}
+            error={errors.street}
+          />
+          <InputField
+            label="City"
+            type="text"
+            name="city"
+            value={formData.city}
+            onChange={handleChange}
+            error={errors.city}
+          />
+          <SelectField
+            label="State"
+            name="state"
+            value={formData.state}
+            onChange={handleChange}
+            options={states}
+            error={errors.state}
+          />
+          <InputField
+            label="Zip Code"
+            type="text"
+            name="zipCode"
+            value={formData.zipCode}
+            onChange={handleChange}
+            error={errors.zipCode}
+          />
+        </fieldset>
+        <SelectField
+          label="Department"
+          name="department"
+          value={formData.department}
+          onChange={handleChange}
+          options={departments}
+          error={errors.department}
+        />
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
         >
-          Learn React
-        </a>
-      </header>
+          Save
+        </button>
+      </form>
     </div>
   );
-}
+};
 
-export default App;
+export default CreateEmployee;
