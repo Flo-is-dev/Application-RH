@@ -3,6 +3,7 @@ import InputField from "../components/ui/InputField";
 import SelectField from "../components/ui/SelectField";
 import states from "../data/states";
 import departments from "../data/department";
+import DatePickerContainer from "../components/DatePickerContainer";
 
 const Form = () => {
   const [formData, setFormData] = useState({
@@ -86,6 +87,7 @@ const Form = () => {
           onChange={handleChange}
           error={errors.dateOfBirth}
         />
+        <DatePickerContainer />
         <InputField
           label="Start Date"
           type="date"
