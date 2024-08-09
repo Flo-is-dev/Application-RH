@@ -2,7 +2,7 @@ import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const DatePickerContainer = () => {
+const DatePickerContainer = ({ error }) => {
   const [selectedDate, setSelectedDate] = useState(null);
 
   return (
@@ -13,7 +13,9 @@ const DatePickerContainer = () => {
         dateFormat="dd/MM/yyyy"
         showPopperArrow={false}
         placeholderText="Select a date"
-        className="my-custom-input"
+        className={`mt-1 p-2 block w-full shadow-sm sm:text-sm border ${
+          error ? "border-red-500" : "border-gray-300"
+        } rounded-md`}
       />
     </div>
   );
