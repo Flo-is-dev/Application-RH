@@ -50,16 +50,10 @@ const Form = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto my-8 p-4 bg-white border-2 rounded-lg">
-      <h1 className="text-3xl font-semibold text-center text-gray-800">
+    <div className="max-w-md mx-auto px-4 bg-white rounded-lg">
+      <h1 className="text-3xl mb-6 font-semibold text-center text-gray-800">
         HRnet
       </h1>
-      <a
-        href="/Tab"
-        className="text-pink-500 hover:text-pink-700 block text-center my-4 underline"
-      >
-        View Current Employees
-      </a>
       <h2 className="text-xl font-semibold text-center mb-4">
         Create Employee
       </h2>
@@ -97,7 +91,7 @@ const Form = () => {
           onChange={handleChange}
           error={errors.startDate}
         />
-        <fieldset className="border border-gray-300 p-4 rounded-md">
+        <fieldset className="border border-gray-200 p-4 rounded-md">
           <legend className="text-lg font-semibold">Address</legend>
           <InputField
             label="Street"
@@ -142,7 +136,7 @@ const Form = () => {
         />
         <button
           type="submit"
-          className="w-full bg-orange-400 text-white p-2 rounded-md hover:bg-orange-600"
+          className="w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-2 rounded-md shadow-md transition duration-300"
         >
           Save
         </button>
