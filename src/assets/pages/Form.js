@@ -46,7 +46,6 @@ const Form = () => {
     e.preventDefault();
     if (validate()) {
       console.log("Employee data submitted: ", formData);
-      // Vous pouvez ajouter le code pour soumettre les données ici
     }
   };
 
