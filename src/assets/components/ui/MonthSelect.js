@@ -9,7 +9,7 @@ const MonthSelect = ({
   return (
     <div className="relative">
       <div
-        className="font-bold text-lg cursor-pointer"
+        className="font-semibold text-base cursor-pointer"
         style={{ minWidth: "95px", textAlign: "center" }}
         onClick={toggleMonthSelect}
       >
@@ -24,8 +24,8 @@ const MonthSelect = ({
             <div
               key={index}
               onClick={() => handleMonthChange(index)}
-              className={`p-2 cursor-pointer hover:bg-gray-200 ${
-                currentDate.getMonth() === index ? "bg-blue-500 text-white" : ""
+              className={`p-2 cursor-pointer hover:bg-pink-200 ${
+                currentDate.getMonth() === index ? "bg-pink-500 text-white" : ""
               }`}
             >
               {format(new Date(2024, index), "MMMM")}

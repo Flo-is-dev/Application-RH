@@ -18,19 +18,19 @@ const DaysGrid = ({ currentDate, selectedDate, handleDateClick }) => {
 
   return (
     <div className="grid grid-cols-7 gap-1">
-      <div className="font-bold text-center">Sun</div>
-      <div className="font-bold text-center">Mon</div>
-      <div className="font-bold text-center">Tue</div>
-      <div className="font-bold text-center">Wed</div>
-      <div className="font-bold text-center">Thu</div>
-      <div className="font-bold text-center">Fri</div>
-      <div className="font-bold text-center">Sat</div>
+      <div className="font-semibold text-center">Sun</div>
+      <div className="font-semibold text-center">Mon</div>
+      <div className="font-semibold text-center">Tue</div>
+      <div className="font-semibold text-center">Wed</div>
+      <div className="font-semibold text-center">Thu</div>
+      <div className="font-semibold text-center">Fri</div>
+      <div className="font-semibold text-center">Sat</div>
       {days.map((day) => (
         <div
           key={day}
           onClick={() => handleDateClick(day)}
-          className={`p-2 text-center border border-gray-200 cursor-pointer ${
-            isSameDay(day, selectedDate) ? "bg-blue-500 text-white" : ""
+          className={`p-2 text-center rounded-lg hover:bg-pink-200 cursor-pointer ${
+            isSameDay(day, selectedDate) ? "bg-pink-500 text-white " : ""
           }`}
         >
           {format(day, "d")}

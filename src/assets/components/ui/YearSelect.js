@@ -9,7 +9,7 @@ const YearSelect = ({
   return (
     <div className="relative">
       <div
-        className="font-bold text-lg cursor-pointer"
+        className="font-semibold text-base cursor-pointer"
         style={{ textAlign: "center" }}
         onClick={toggleYearSelect}
       >
@@ -26,9 +26,9 @@ const YearSelect = ({
               <div
                 key={year}
                 onClick={() => handleYearChange(year)}
-                className={`p-2 cursor-pointer hover:bg-gray-200 ${
+                className={`p-2 cursor-pointer hover:bg-pink-200 ${
                   currentDate.getFullYear() === year
-                    ? "bg-blue-500 text-white"
+                    ? "bg-pink-500 text-white"
                     : ""
                 }`}
               >
