@@ -1,9 +1,22 @@
 import React, { useState, useRef, useEffect } from "react";
-import { format, addMonths, subMonths, setMonth, setYear } from "date-fns";
+import {
+  format,
+  addMonths,
+  subMonths,
+  setMonth,
+  setYear,
+  isAfter,
+  isBefore,
+} from "date-fns";
 import DateNavigation from "./ui/DateNavigation";
 import DaysGrid from "./ui/DaysGrid";
 
-const DatePickerContainer = () => {
+const DatePickerContainer = ({
+  disableFutureDates = false,
+  disablePastDates = false,
+  error,
+  label,
+}) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -13,6 +26,12 @@ const DatePickerContainer = () => {
   const datePickerRef = useRef(null);
 
   const handleDateClick = (day) => {
+    if (
+      (disableFutureDates && isAfter(day, new Date())) ||
+      (disablePastDates && isBefore(day, new Date()))
+    ) {
+      return;
+    }
     setSelectedDate(day);
     setShowDatePicker(false);
     if (dateInputRef.current) {
@@ -63,13 +82,18 @@ const DatePickerContainer = () => {
   }, []);
 
   return (
-    <div className="relative inline-block">
+    <div className="relative block">
+      <label className="block text-sm mb-1 font-medium text-gray-700">
+        {label}
+      </label>
       <input
         type="text"
         ref={dateInputRef}
         readOnly
         onClick={() => setShowDatePicker(!showDatePicker)}
-        className="border border-gray-300 p-2 rounded-md cursor-pointer"
+        className={`w-full px-4 py-1 border-b-2 rounded-md  focus:outline-none focus:ring-2 focus:ring-pink-500 ${
+          error ? "border-red-500 border" : "border-pink-500 "
+        } rounded-md`}
         placeholder="Select a date"
       />
       {showDatePicker && (
@@ -99,6 +123,8 @@ const DatePickerContainer = () => {
             currentDate={currentDate}
             selectedDate={selectedDate}
             handleDateClick={handleDateClick}
+            disableFutureDates={disableFutureDates}
+            disablePastDates={disablePastDates}
           />
         </div>
       )}

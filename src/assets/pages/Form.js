@@ -74,15 +74,16 @@ const Form = () => {
           onChange={handleChange}
           error={errors.lastName}
         />
-        <InputField
+        <DatePickerContainer
           label="Date of Birth"
-          type="date"
-          name="dateOfBirth"
-          value={formData.dateOfBirth}
-          onChange={handleChange}
           error={errors.dateOfBirth}
+          disableFutureDates={true}
         />
-        <DatePickerContainer />
+        <DatePickerContainer
+          label="Start Date"
+          error={errors.startDate}
+          disablePastDates={true}
+        />
         <InputField
           label="Start Date"
           type="date"
@@ -91,8 +92,8 @@ const Form = () => {
           onChange={handleChange}
           error={errors.startDate}
         />
-        <fieldset className="border border-gray-200 p-4 rounded-md">
-          <legend className="text-lg font-semibold">Address</legend>
+        <fieldset className="border border-gray-200 p-4 rounded-lg">
+          <legend className="text-lg font-semibold px-4">Address</legend>
           <InputField
             label="Street"
             type="text"

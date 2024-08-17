@@ -16,7 +16,7 @@ const DateNavigation = ({
   handleYearChange,
 }) => {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between mb-4">
       <FaChevronLeft className="cursor-pointer" onClick={previousMonth} />
       <div className="flex space-x-2 items-center">
         <MonthSelect

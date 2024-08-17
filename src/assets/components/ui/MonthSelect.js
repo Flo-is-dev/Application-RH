@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import { FaChevronDown } from "react-icons/fa";
 
 const MonthSelect = ({
   currentDate,
@@ -9,11 +10,12 @@ const MonthSelect = ({
   return (
     <div className="relative">
       <div
-        className="font-semibold text-base cursor-pointer"
+        className="font-semibold text-base cursor-pointer flex justify-center"
         style={{ minWidth: "95px", textAlign: "center" }}
         onClick={toggleMonthSelect}
       >
-        {format(currentDate, "MMMM")}
+        {format(currentDate, "MMMM")}{" "}
+        <FaChevronDown className="cursor-pointer text-xs mt-2 ml-2" />
       </div>
       {showMonthSelect && (
         <div
