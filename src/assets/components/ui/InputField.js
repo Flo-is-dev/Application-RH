@@ -8,8 +8,8 @@ const InputField = ({ label, type, name, value, onChange, error }) => (
       name={name}
       value={value}
       onChange={onChange}
-      className={`mt-1 p-2 block w-full shadow-sm sm:text-sm border ${
-        error ? "border-red-500" : "border-gray-300"
+      className={`w-full px-4 py-2 border-b-2 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 ${
+        error ? "border-red-500 border" : "border-pink-500 "
       } rounded-md`}
       aria-invalid={error ? "true" : "false"}
     />
