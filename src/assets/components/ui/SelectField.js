@@ -5,8 +5,8 @@ const SelectField = ({ label, name, value, onChange, options, error }) => (
       name={name}
       value={value}
       onChange={onChange}
-      className={`mt-1 block w-full p-2 shadow-sm sm:text-sm border ${
-        error ? "border-red-500" : "border-gray-300"
+      className={`mt-1 block w-full p-2 shadow-sm sm:text-sm focus:outline-none  border-b-2 ${
+        error ? "border-red-500" : "border-pink-500 "
       } rounded-md`}
       aria-invalid={error ? "true" : "false"}
     >
