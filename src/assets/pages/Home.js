@@ -14,12 +14,6 @@ const Home = () => {
           </div>
 
           <div className="p-8 sm:w-1/2">
-            <a
-              href="/Tab"
-              className="text-pink-500 hover:text-pink-700 block  mb-4 underline"
-            >
-              View Current Employees
-            </a>
             <Form />
           </div>
         </div>

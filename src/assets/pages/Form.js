@@ -4,6 +4,7 @@ import SelectField from "../components/ui/SelectField";
 import states from "../data/states";
 import departments from "../data/department";
 import DatePickerContainer from "../components/DatePickerContainer";
+import ModaleButton from "../components/ModaleButton";
 
 const Form = () => {
   const [formData, setFormData] = useState({
@@ -54,9 +55,16 @@ const Form = () => {
       <h1 className="text-3xl mb-6 font-semibold text-center text-gray-800">
         HRnet
       </h1>
-      <h2 className="text-xl font-semibold text-center mb-4">
-        Create Employee
-      </h2>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-semibold mb-4">Create Employee</h2>
+        <a
+          href="/Tab"
+          className="text-pink-500 hover:text-pink-700  mb-4 block underline"
+        >
+          View Current Employees
+        </a>
+      </div>
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <InputField
           label="First Name"
@@ -141,6 +149,7 @@ const Form = () => {
         >
           Save
         </button>
+        <ModaleButton />
       </form>
     </div>
   );
