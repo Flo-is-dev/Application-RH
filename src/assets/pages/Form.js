@@ -29,6 +29,20 @@ const Form = () => {
     });
   };
 
+  const handleDateOfBirthChange = (date) => {
+    setFormData({
+      ...formData,
+      dateOfBirth: date,
+    });
+  };
+
+  const handleStartDateChange = (date) => {
+    setFormData({
+      ...formData,
+      startDate: date,
+    });
+  };
+
   const validate = () => {
     const newErrors = {};
     if (!formData.firstName) newErrors.firstName = "First Name is required";
@@ -85,20 +99,16 @@ const Form = () => {
         <DatePickerContainer
           label="Date of Birth"
           error={errors.dateOfBirth}
+          value={formData.dateOfBirth}
           disableFutureDates={true}
+          onDateChange={handleDateOfBirthChange}
         />
         <DatePickerContainer
           label="Start Date"
           error={errors.startDate}
-          disablePastDates={true}
-        />
-        <InputField
-          label="Start Date"
-          type="date"
-          name="startDate"
           value={formData.startDate}
-          onChange={handleChange}
-          error={errors.startDate}
+          disablePastDates={true}
+          onDateChange={handleStartDateChange}
         />
         <fieldset className="border border-gray-200 p-4 rounded-lg">
           <legend className="text-lg font-semibold px-4">Address</legend>
@@ -143,12 +153,6 @@ const Form = () => {
           options={departments}
           error={errors.department}
         />
-        <button
-          type="submit"
-          className="w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-2 rounded-md shadow-md transition duration-300"
-        >
-          Save
-        </button>
         <ModaleButton />
       </form>
     </div>

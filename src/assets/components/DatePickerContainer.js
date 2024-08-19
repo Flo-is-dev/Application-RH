@@ -16,14 +16,26 @@ const DatePickerContainer = ({
   disablePastDates = false,
   error,
   label,
+  value, // Ajout de la valeur actuelle pour l'input
+  onDateChange, // Ajout de la prop pour remonter la date
 }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(value || null);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showMonthSelect, setShowMonthSelect] = useState(false);
   const [showYearSelect, setShowYearSelect] = useState(false);
   const dateInputRef = useRef(null);
   const datePickerRef = useRef(null);
+
+  // Mise à jour du champ input quand la valeur change de l'extérieur
+  useEffect(() => {
+    if (value) {
+      setSelectedDate(value);
+      if (dateInputRef.current) {
+        dateInputRef.current.value = value;
+      }
+    }
+  }, [value]);
 
   const handleDateClick = (day) => {
     if (
@@ -32,20 +44,28 @@ const DatePickerContainer = ({
     ) {
       return;
     }
-    setSelectedDate(day);
+    const formattedDate = format(day, "yyyy-MM-dd");
+    setSelectedDate(formattedDate);
     setShowDatePicker(false);
     if (dateInputRef.current) {
-      dateInputRef.current.value = format(day, "yyyy-MM-dd");
+      dateInputRef.current.value = formattedDate;
+    }
+    if (onDateChange) {
+      onDateChange(formattedDate); // Remonte la date sélectionnée
     }
   };
 
   const goToToday = () => {
     const today = new Date();
+    const formattedDate = format(today, "yyyy-MM-dd");
     setCurrentDate(today);
-    setSelectedDate(today);
+    setSelectedDate(formattedDate);
     setShowDatePicker(true);
     if (dateInputRef.current) {
-      dateInputRef.current.value = format(today, "yyyy-MM-dd");
+      dateInputRef.current.value = formattedDate;
+    }
+    if (onDateChange) {
+      onDateChange(formattedDate); // Remonte la date sélectionnée
     }
   };
 
