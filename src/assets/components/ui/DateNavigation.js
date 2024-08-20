@@ -1,38 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaHome, FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import MonthSelect from "./MonthSelect";
-import YearSelect from "./YearSelect";
+import { addMonths, subMonths } from "date-fns";
+import SelectDropdown from "./SelectDropdown";
 
-const DateNavigation = ({
-  currentDate,
-  previousMonth,
-  nextMonth,
-  goToToday,
-  showMonthSelect,
-  toggleMonthSelect,
-  handleMonthChange,
-  showYearSelect,
-  toggleYearSelect,
-  handleYearChange,
-}) => {
+const DateNavigation = ({ currentDate, setCurrentDate, goToToday }) => {
+  const [showMonthSelect, setShowMonthSelect] = useState(false);
+  const [showYearSelect, setShowYearSelect] = useState(false);
+
+  const previousMonth = () => setCurrentDate(subMonths(currentDate, 1));
+  const nextMonth = () => setCurrentDate(addMonths(currentDate, 1));
+
+  const handleMonthChange = (month) => {
+    const updatedDate = new Date(currentDate.setMonth(month));
+    setCurrentDate(updatedDate);
+    setShowMonthSelect(false);
+  };
+
+  const handleYearChange = (year) => {
+    const updatedDate = new Date(currentDate.setFullYear(year));
+    setCurrentDate(updatedDate);
+    setShowYearSelect(false);
+  };
+
   return (
     <div className="flex items-center justify-between mb-4">
       <FaChevronLeft className="cursor-pointer" onClick={previousMonth} />
       <div className="flex space-x-2 items-center">
-        <MonthSelect
-          currentDate={currentDate}
-          handleMonthChange={handleMonthChange}
-          showMonthSelect={showMonthSelect}
-          toggleMonthSelect={toggleMonthSelect}
+        <SelectDropdown
+          label={currentDate.toLocaleString("default", { month: "long" })}
+          options={Array.from({ length: 12 }, (_, index) => ({
+            value: index,
+            label: new Date(2024, index).toLocaleString("default", {
+              month: "long",
+            }),
+          }))}
+          isOpen={showMonthSelect}
+          toggleOpen={() => setShowMonthSelect(!showMonthSelect)}
+          onSelect={handleMonthChange}
         />
-        <YearSelect
-          currentDate={currentDate}
-          handleYearChange={handleYearChange}
-          showYearSelect={showYearSelect}
-          toggleYearSelect={toggleYearSelect}
+        <SelectDropdown
+          label={currentDate.getFullYear()}
+          options={Array.from({ length: 60 }, (_, index) => {
+            const year = 1964 + index;
+            return { value: year, label: year };
+          })}
+          isOpen={showYearSelect}
+          toggleOpen={() => setShowYearSelect(!showYearSelect)}
+          onSelect={handleYearChange}
         />
       </div>
-      <FaChevronRight className="cursor-pointer ml-2" onClick={nextMonth} />
+      <FaChevronRight className="cursor-pointer" onClick={nextMonth} />
       <FaHome className="cursor-pointer ml-2" onClick={goToToday} />
     </div>
   );

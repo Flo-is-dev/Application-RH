@@ -19,7 +19,7 @@ const ModaleButton = () => {
           <ModalContent
             closeModal={() => setShowModal(false)}
             content="Employee Created!"
-            className="bg-rose-200 text-amber-900 p-10 rounded relative mb-[10vh] select-none"
+            className="bg-green-200 text-green-900 p-10 rounded relative mb-[10vh] select-none"
           />,
           document.body
         )}

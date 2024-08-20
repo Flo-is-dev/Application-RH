@@ -42,9 +42,9 @@ const DaysGrid = ({
           <div
             key={day}
             onClick={() => !isDisabled && handleDateClick(day)}
-            className={`p-2 text-center hover:bg-pink-200 rounded-xl  cursor-pointer ${
+            className={`p-2 text-center hover:bg-pink-200 rounded-xl cursor-pointer ${
               isSameDay(day, selectedDate)
-                ? "bg-pink-500 text-white "
+                ? "bg-pink-500 text-white"
                 : isDisabled
                 ? "text-gray-400 cursor-not-allowed"
                 : ""
