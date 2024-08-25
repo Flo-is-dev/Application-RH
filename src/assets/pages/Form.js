@@ -1,4 +1,6 @@
-import { useState } from "react";
+// Form.js
+import { useDispatch, useSelector } from "react-redux";
+import { setFormData, setErrors } from "../../feature/formSlice";
 import InputField from "../components/ui/InputField";
 import SelectField from "../components/ui/SelectField";
 import states from "../data/states";
@@ -7,26 +9,12 @@ import DatePickerContainer from "../components/DatePickerContainer";
 import ModaleButton from "../components/ModaleButton";
 
 const Form = () => {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    dateOfBirth: "",
-    startDate: "",
-    street: "",
-    city: "",
-    state: "Alabama",
-    zipCode: "",
-    department: "Sales",
-  });
-
-  const [errors, setErrors] = useState({});
+  const dispatch = useDispatch();
+  const { formData, errors } = useSelector((state) => state.form);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    dispatch(setFormData({ [name]: value }));
   };
 
   const validateForm = () => {
@@ -39,7 +27,7 @@ const Form = () => {
     if (!formData.street) newErrors.street = "Street is required";
     if (!formData.city) newErrors.city = "City is required";
     if (!formData.zipCode) newErrors.zipCode = "Zip Code is required";
-    setErrors(newErrors);
+    dispatch(setErrors(newErrors));
     return Object.keys(newErrors).length === 0;
   };
 
@@ -80,16 +68,14 @@ const Form = () => {
           error={errors.dateOfBirth}
           value={formData.dateOfBirth}
           disableFutureDates={true}
-          onDateChange={(date) =>
-            setFormData({ ...formData, dateOfBirth: date })
-          }
+          onDateChange={(date) => dispatch(setFormData({ dateOfBirth: date }))}
         />
         <DatePickerContainer
           label="Start Date"
           error={errors.startDate}
           value={formData.startDate}
           disablePastDates={false}
-          onDateChange={(date) => setFormData({ ...formData, startDate: date })}
+          onDateChange={(date) => dispatch(setFormData({ startDate: date }))}
         />
         <fieldset className="border border-gray-200 p-4 rounded-lg">
           <legend className="text-lg font-semibold px-4">Address</legend>
@@ -134,7 +120,7 @@ const Form = () => {
           options={departments}
           error={errors.department}
         />
-        <ModaleButton validateForm={validateForm} formData={formData} />
+        <ModaleButton validateForm={validateForm} />
       </form>
     </div>
   );

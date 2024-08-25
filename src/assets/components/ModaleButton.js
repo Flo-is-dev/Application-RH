@@ -1,9 +1,11 @@
 import { useState } from "react";
 import ModalContent from "florent-g-my-modal";
 import { createPortal } from "react-dom";
+import { useSelector } from "react-redux";
 
-const ModaleButton = ({ validateForm, formData }) => {
+const ModaleButton = ({ validateForm }) => {
   const [showModal, setShowModal] = useState(false);
+  const formData = useSelector((state) => state.form.formData);
 
   const handleClick = (e) => {
     e.preventDefault();
