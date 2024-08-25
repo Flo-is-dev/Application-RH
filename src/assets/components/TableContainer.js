@@ -1,20 +1,25 @@
 import React, { useState } from "react";
 import { Table, Input } from "antd";
-// import "antd/dist/reset.css"; ligne commenté pour annuler le reset css par defaur ffectué par la lib antd
 import data from "../data/mockProfileData";
 
 const { Search } = Input;
 
 const EmployeeTable = () => {
   const [searchText, setSearchText] = useState("");
-  const [pageSize, setPageSize] = useState(10); // État pour contrôler le nombre de lignes par page
+  const [pageSize, setPageSize] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handleSearch = (value) => {
     setSearchText(value);
   };
 
   const handlePageSizeChange = (event) => {
-    setPageSize(Number(event.target.value)); // Mettre à jour la taille de page
+    setPageSize(Number(event.target.value));
+    setCurrentPage(1); // Reset to first page when page size changes
+  };
+
+  const handlePageChange = (page, pageSize) => {
+    setCurrentPage(page);
   };
 
   const columns = [
@@ -22,7 +27,7 @@ const EmployeeTable = () => {
       title: "First Name",
       dataIndex: "firstName",
       key: "firstName",
-      sorter: (a, b) => a.firstName.localeCompare(b.firstName), //sorter - fonction spécifique à ant Design
+      sorter: (a, b) => a.firstName.localeCompare(b.firstName),
     },
     {
       title: "Last Name",
@@ -80,6 +85,10 @@ const EmployeeTable = () => {
     )
   );
 
+  const start = (currentPage - 1) * pageSize + 1;
+  const end = Math.min(currentPage * pageSize, filteredData.length);
+  const total = filteredData.length;
+
   return (
     <div>
       <div className="flex justify-between items-center mb-2">
@@ -109,8 +118,17 @@ const EmployeeTable = () => {
       <Table
         columns={columns}
         dataSource={filteredData}
-        pagination={{ pageSize: pageSize }}
+        pagination={{
+          pageSize: pageSize,
+          current: currentPage,
+          onChange: handlePageChange,
+        }}
       />
+      <div className="mt-2">
+        <p>
+          Showing {start} to {end} of {total} entries
+        </p>
+      </div>
     </div>
   );
 };
