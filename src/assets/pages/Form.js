@@ -29,21 +29,7 @@ const Form = () => {
     });
   };
 
-  const handleDateOfBirthChange = (date) => {
-    setFormData({
-      ...formData,
-      dateOfBirth: date,
-    });
-  };
-
-  const handleStartDateChange = (date) => {
-    setFormData({
-      ...formData,
-      startDate: date,
-    });
-  };
-
-  const validate = () => {
+  const validateForm = () => {
     const newErrors = {};
     if (!formData.firstName) newErrors.firstName = "First Name is required";
     if (!formData.lastName) newErrors.lastName = "Last Name is required";
@@ -55,19 +41,6 @@ const Form = () => {
     if (!formData.zipCode) newErrors.zipCode = "Zip Code is required";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validate()) {
-      console.log(
-        `%c Success !! 💯 New Profile Created`,
-        `color:purple;font-size: 16px;font-weight:bold;background-color:lightpink;padding:10px 30px;border-radius: 6px;border:3px solid white`
-      );
-      console.log(`\u001b[32mhello stack\u001b[0m`);
-
-      console.table(formData);
-    }
   };
 
   return (
@@ -85,7 +58,7 @@ const Form = () => {
         </a>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form className="space-y-4">
         <InputField
           label="First Name"
           type="text"
@@ -107,14 +80,16 @@ const Form = () => {
           error={errors.dateOfBirth}
           value={formData.dateOfBirth}
           disableFutureDates={true}
-          onDateChange={handleDateOfBirthChange}
+          onDateChange={(date) =>
+            setFormData({ ...formData, dateOfBirth: date })
+          }
         />
         <DatePickerContainer
           label="Start Date"
           error={errors.startDate}
           value={formData.startDate}
-          disablePastDates={true}
-          onDateChange={handleStartDateChange}
+          disablePastDates={false}
+          onDateChange={(date) => setFormData({ ...formData, startDate: date })}
         />
         <fieldset className="border border-gray-200 p-4 rounded-lg">
           <legend className="text-lg font-semibold px-4">Address</legend>
@@ -159,7 +134,7 @@ const Form = () => {
           options={departments}
           error={errors.department}
         />
-        <ModaleButton />
+        <ModaleButton validateForm={validateForm} formData={formData} />
       </form>
     </div>
   );
