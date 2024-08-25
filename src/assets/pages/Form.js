@@ -60,7 +60,13 @@ const Form = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      console.log("Employee data submitted: ", formData);
+      console.log(
+        `%c Success !! 💯 New Profile Created`,
+        `color:purple;font-size: 16px;font-weight:bold;background-color:lightpink;padding:10px 30px;border-radius: 6px;border:3px solid white`
+      );
+      console.log(`\u001b[32mhello stack\u001b[0m`);
+
+      console.table(formData);
     }
   };
 
