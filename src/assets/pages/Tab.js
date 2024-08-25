@@ -1,4 +1,5 @@
-import MyTable from "../components/TableContainer";
+import TableContainer from "../components/TableContainer";
+import { Link } from "react-router-dom";
 
 const Tab = () => {
   return (
@@ -7,14 +8,14 @@ const Tab = () => {
         <h1 className="text-3xl mb-6 font-semibold text-center text-gray-800">
           Current Employees
         </h1>
-        <MyTable />
+        <TableContainer />
       </div>
-      <a
-        href="/"
+      <Link
+        to="/"
         className="text-pink-500 hover:text-pink-700  mb-4 block underline"
       >
         Home
-      </a>
+      </Link>
     </main>
   );
 };

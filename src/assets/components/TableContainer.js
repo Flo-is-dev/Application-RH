@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Table, Input } from "antd";
 import data from "../data/mockProfileData";
+import { useSelector } from "react-redux";
 
 const { Search } = Input;
 
@@ -8,6 +9,8 @@ const EmployeeTable = () => {
   const [searchText, setSearchText] = useState("");
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+  const formData = useSelector((state) => state.form.formData);
+  const singleDataArray = [formData];
 
   const handleSearch = (value) => {
     setSearchText(value);
@@ -79,7 +82,7 @@ const EmployeeTable = () => {
     },
   ];
 
-  const filteredData = data.filter((item) =>
+  const filteredData = singleDataArray.filter((item) =>
     Object.keys(item).some((key) =>
       String(item[key]).toLowerCase().includes(searchText.toLowerCase())
     )

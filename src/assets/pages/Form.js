@@ -7,6 +7,7 @@ import states from "../data/states";
 import departments from "../data/department";
 import DatePickerContainer from "../components/DatePickerContainer";
 import ModaleButton from "../components/ModaleButton";
+import { Link } from "react-router-dom";
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -38,12 +39,12 @@ const Form = () => {
       </h1>
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold mb-4">Create Employee</h2>
-        <a
-          href="/Tab"
+        <Link
+          to="/Tab"
           className="text-pink-500 hover:text-pink-700  mb-4 block underline"
         >
           View Current Employees
-        </a>
+        </Link>
       </div>
 
       <form className="space-y-4">
