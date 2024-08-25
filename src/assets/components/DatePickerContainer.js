@@ -60,6 +60,14 @@ const DatePickerContainer = ({
     };
   }, []);
 
+  // !  On sort gotoToday pour gagner en lisibilité
+  const goToToday = () => {
+    const today = new Date();
+    setCurrentDate(today);
+    handleDateClick(today);
+    setShowDatePicker(true);
+  };
+
   return (
     <div className="relative block">
       <label className="block text-sm mb-1 font-medium text-gray-700">
@@ -83,11 +91,7 @@ const DatePickerContainer = ({
           <DateNavigation
             currentDate={currentDate}
             setCurrentDate={setCurrentDate}
-            goToToday={() => {
-              const today = new Date();
-              setCurrentDate(today);
-              handleDateClick(today);
-            }}
+            goToToday={goToToday}
           />
           <DaysGrid
             currentDate={currentDate}

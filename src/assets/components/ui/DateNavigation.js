@@ -22,28 +22,33 @@ const DateNavigation = ({ currentDate, setCurrentDate, goToToday }) => {
     setShowYearSelect(false);
   };
 
+  //  ! On sort les options du mois et de l'année pour gagner en lisibilité
+  const monthOption = Array.from({ length: 12 }, (_, index) => ({
+    value: index,
+    label: new Date(2024, index).toLocaleString("default", {
+      month: "long",
+    }),
+  }));
+
+  const yearOption = Array.from({ length: 60 }, (_, index) => {
+    const year = 1964 + index;
+    return { value: year, label: year };
+  });
+
   return (
     <div className="flex items-center justify-between mb-4">
       <FaChevronLeft className="cursor-pointer" onClick={previousMonth} />
       <div className="flex space-x-2 items-center">
         <SelectDropdown
           label={currentDate.toLocaleString("default", { month: "long" })}
-          options={Array.from({ length: 12 }, (_, index) => ({
-            value: index,
-            label: new Date(2024, index).toLocaleString("default", {
-              month: "long",
-            }),
-          }))}
+          options={monthOption}
           isOpen={showMonthSelect}
           toggleOpen={() => setShowMonthSelect(!showMonthSelect)}
           onSelect={handleMonthChange}
         />
         <SelectDropdown
           label={currentDate.getFullYear()}
-          options={Array.from({ length: 60 }, (_, index) => {
-            const year = 1964 + index;
-            return { value: year, label: year };
-          })}
+          options={yearOption}
           isOpen={showYearSelect}
           toggleOpen={() => setShowYearSelect(!showYearSelect)}
           onSelect={handleYearChange}
