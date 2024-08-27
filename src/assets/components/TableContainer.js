@@ -8,8 +8,12 @@ const EmployeeTable = () => {
   const [searchText, setSearchText] = useState("");
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
-  const formData = useSelector((state) => state.form.formData);
-  const singleDataArray = [formData, ...data];
+  const employees = useSelector((state) => state.form.employees);
+  const isFormSubmitted = useSelector((state) => state.form.isFormSubmitted);
+
+  console.log("form deja soumis?", isFormSubmitted);
+
+  const singleDataArray = isFormSubmitted ? [...employees, ...data] : [...data];
 
   const handleSearch = (value) => {
     setSearchText(value);
@@ -17,7 +21,7 @@ const EmployeeTable = () => {
 
   const handlePageSizeChange = (event) => {
     setPageSize(Number(event.target.value));
-    setCurrentPage(1); // Reset to first page when page size changes
+    setCurrentPage(1);
   };
 
   const handlePageChange = (page, pageSize) => {

@@ -1,6 +1,11 @@
-// Form.js
 import { useDispatch, useSelector } from "react-redux";
-import { setFormData, setErrors } from "../../feature/formSlice";
+import {
+  setFormData,
+  setErrors,
+  setFormSubmitted,
+  resetFormData,
+  addEmployee, // Nouvelle action pour ajouter un employé
+} from "../../feature/formSlice";
 import InputField from "../components/ui/InputField";
 import SelectField from "../components/ui/SelectField";
 import states from "../data/states";
@@ -28,8 +33,17 @@ const Form = () => {
     if (!formData.street) newErrors.street = "Street is required";
     if (!formData.city) newErrors.city = "City is required";
     if (!formData.zipCode) newErrors.zipCode = "Zip Code is required";
+
     dispatch(setErrors(newErrors));
-    return Object.keys(newErrors).length === 0;
+    const isValid = Object.keys(newErrors).length === 0;
+
+    if (isValid) {
+      dispatch(addEmployee()); // Ajouter l'employé à la liste des employés
+      dispatch(resetFormData()); // Réinitialiser le formulaire
+      dispatch(setFormSubmitted(true));
+    }
+
+    return isValid;
   };
 
   return (
