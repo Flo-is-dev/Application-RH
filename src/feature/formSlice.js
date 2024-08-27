@@ -36,7 +36,12 @@ const formSlice = createSlice({
       state.isFormSubmitted = false; // Réinitialise l'état de soumission
     },
     addEmployee: (state) => {
-      state.employees.unshift(state.formData); // Ajoute les données du formulaire à la liste des employés + persiste avec ReduxPersiste
+      const newEmployee = {
+        ...state.formData,
+        key: Date.now(), // Utilise le timestamp actuel pour générer un id unique
+      };
+      state.employees.unshift(newEmployee);
+      // Ajoute les données du formulaire à la liste des employés + persiste avec ReduxPersiste
     },
   },
 });

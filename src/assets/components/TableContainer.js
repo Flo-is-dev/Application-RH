@@ -15,6 +15,8 @@ const EmployeeTable = () => {
 
   const singleDataArray = isFormSubmitted ? [...employees, ...data] : [...data];
 
+  console.log(singleDataArray);
+
   const handleSearch = (value) => {
     setSearchText(value);
   };
@@ -123,7 +125,10 @@ const EmployeeTable = () => {
 
       <Table
         columns={columns}
-        dataSource={filteredData}
+        dataSource={singleDataArray.map((item) => ({
+          ...item,
+          key: item.key || Date.now(),
+        }))}
         pagination={{
           pageSize: pageSize,
           current: currentPage,
