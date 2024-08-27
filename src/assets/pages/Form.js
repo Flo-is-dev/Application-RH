@@ -4,7 +4,7 @@ import {
   setErrors,
   setFormSubmitted,
   resetFormData,
-  addEmployee, // Nouvelle action pour ajouter un employé
+  addEmployee,
 } from "../../feature/formSlice";
 import InputField from "../components/ui/InputField";
 import SelectField from "../components/ui/SelectField";

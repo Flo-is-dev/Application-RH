@@ -1,4 +1,3 @@
-// formSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -37,7 +36,7 @@ const formSlice = createSlice({
       state.isFormSubmitted = false; // Réinitialise l'état de soumission
     },
     addEmployee: (state) => {
-      state.employees.push(state.formData); // Ajoute les données du formulaire à la liste des employés
+      state.employees.unshift(state.formData); // Ajoute les données du formulaire à la liste des employés + persiste avec ReduxPersiste
     },
   },
 });

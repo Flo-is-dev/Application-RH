@@ -17,12 +17,11 @@ const DatePickerContainer = ({
   const dateInputRef = useRef(null);
   const datePickerRef = useRef(null);
 
+  // Effet pour mettre à jour selectedDate et l'input lorsque value change
   useEffect(() => {
-    if (value) {
-      setSelectedDate(value);
-      if (dateInputRef.current) {
-        dateInputRef.current.value = value;
-      }
+    setSelectedDate(value); // Même si value est null ou "", selectedDate est mis à jour
+    if (dateInputRef.current) {
+      dateInputRef.current.value = value || ""; // Mettre à jour l'input avec la valeur ou une chaîne vide
     }
   }, [value]);
 
@@ -60,7 +59,7 @@ const DatePickerContainer = ({
     };
   }, []);
 
-  // !  On sort gotoToday pour gagner en lisibilité
+  // Fonction pour aller à la date d'aujourd'hui
   const goToToday = () => {
     const today = new Date();
     setCurrentDate(today);
