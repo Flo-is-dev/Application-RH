@@ -125,7 +125,7 @@ const EmployeeTable = () => {
 
       <Table
         columns={columns}
-        dataSource={singleDataArray.map((item) => ({
+        dataSource={filteredData.map((item) => ({
           ...item,
           key: item.key || Date.now(),
         }))}

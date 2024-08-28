@@ -22,7 +22,9 @@ const store = configureStore({
     getDefaultMiddleware //Suppresion de la sérialisation (globalement)de redux persist - error console
   ) =>
     getDefaultMiddleware({
-      serializableCheck: false,
+      serializableCheck: {
+        ignoredActions: ["persist/PERSIST", "persist/REHYDRATE"], // Ignore les actions de redux-persist
+      },
     }),
 });
 
