@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { format, isAfter, isBefore } from "date-fns";
-import DateNavigation from "./ui/DateNavigation";
-import DaysGrid from "./ui/DaysGrid";
+import DateNavigation from "./datePickerComponents/DateNavigation";
+import DaysGrid from "./datePickerComponents/DaysGrid";
 
 const DatePickerContainer = ({
   disableFutureDates = false,
