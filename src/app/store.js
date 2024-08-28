@@ -18,6 +18,12 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
   reducer: persistedReducer,
+  middleware: (
+    getDefaultMiddleware //Suppresion de la sérialisation (globalement)de redux persist - error console
+  ) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 export const persistor = persistStore(store);

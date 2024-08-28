@@ -10,6 +10,7 @@ import InputField from "../components/ui/InputField";
 import SelectField from "../components/ui/SelectField";
 import states from "../data/states";
 import departments from "../data/department";
+import stateAbbreviations from "../data/stateAbbreviations";
 import DatePickerContainer from "../components/DatePickerContainer";
 import ModaleButton from "../components/ModaleButton";
 import { Link } from "react-router-dom";
@@ -38,6 +39,9 @@ const Form = () => {
     const isValid = Object.keys(newErrors).length === 0;
 
     if (isValid) {
+      // Convertir l'état en abréviation
+      const abbreviatedState = stateAbbreviations[formData.state];
+      dispatch(setFormData({ state: abbreviatedState })); // Met à jour l'état avec l'abréviation
       dispatch(addEmployee()); // Ajouter l'employé à la liste des employés
       dispatch(resetFormData()); // Réinitialiser le formulaire
       dispatch(setFormSubmitted(true));
