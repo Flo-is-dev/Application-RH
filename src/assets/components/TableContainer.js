@@ -9,11 +9,12 @@ const EmployeeTable = () => {
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const employees = useSelector((state) => state.form.employees);
-  const isFormSubmitted = useSelector((state) => state.form.isFormSubmitted);
+  //   const isFormSubmitted = useSelector((state) => state.form.isFormSubmitted);
 
-  console.log("form deja soumis?", isFormSubmitted);
+  //   console.log("form deja soumis?", isFormSubmitted);
 
-  const singleDataArray = isFormSubmitted ? [...employees, ...data] : [...data];
+  //   const singleDataArray = isFormSubmitted ? [...employees, ...data] : [...data];
+  const singleDataArray = [...employees, ...data];
 
   console.log(singleDataArray);
 
@@ -101,8 +102,12 @@ const EmployeeTable = () => {
     <div>
       <div className="flex justify-between items-center mb-2">
         <div className="flex items-center mb-5">
-          <p className="mb-0">Show</p>
+          {/* <p className="mb-0">Show</p> */}
+          <label htmlFor="pageSize" className="mr-2 mb-0">
+            Show
+          </label>
           <select
+            id="pageSize"
             className="border rounded p-1 m-2"
             value={pageSize}
             onChange={handlePageSizeChange}
@@ -133,6 +138,31 @@ const EmployeeTable = () => {
           pageSize: pageSize,
           current: currentPage,
           onChange: handlePageChange,
+          itemRender: (page, type, originalElement) => {
+            if (type === "prev") {
+              return (
+                <button onClick={() => handlePageChange(page)}>Previous</button>
+              );
+            }
+            if (type === "next") {
+              return (
+                <button onClick={() => handlePageChange(page)}>Next</button>
+              );
+            }
+            if (type === "page") {
+              return (
+                <button
+                  onClick={() => handlePageChange(page)}
+                  style={{
+                    fontWeight: currentPage === page ? "bold" : "normal",
+                  }}
+                >
+                  {page}
+                </button>
+              );
+            }
+            return originalElement;
+          },
         }}
       />
       <div className="mt-2">

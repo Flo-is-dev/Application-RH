@@ -7,7 +7,8 @@ const Home = () => {
         <div className="sm:flex sm:flex-row">
           <div className="sm:w-1/2 bg-gradient-to-r from-pink-300 to-purple-600 flex justify-center items-center">
             <img
-              src="/bg.jpg"
+              src="/bg.webp"
+              loading="lazy"
               alt="Illustration"
               className="w-full h-full object-cover"
             />

@@ -1,8 +1,9 @@
+import React, { Suspense, lazy } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setFormData,
   setErrors,
-  setFormSubmitted,
+  //   setFormSubmitted,
   resetFormData,
   addEmployee,
 } from "../../feature/formSlice";
@@ -11,9 +12,13 @@ import SelectField from "../components/ui/SelectField";
 import states from "../data/states";
 import departments from "../data/department";
 import stateAbbreviations from "../data/stateAbbreviations";
-import DatePickerContainer from "../components/DatePickerContainer";
-import ModaleButton from "../components/ModaleButton";
 import { Link } from "react-router-dom";
+
+// Utilisation de React.lazy pour différer ces composants
+const DatePickerContainer = lazy(() =>
+  import("../components/DatePickerContainer")
+);
+const ModaleButton = lazy(() => import("../components/ModaleButton"));
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -42,9 +47,9 @@ const Form = () => {
       // Convertir l'état en abréviation
       const abbreviatedState = stateAbbreviations[formData.state];
       dispatch(setFormData({ state: abbreviatedState })); // Met à jour l'état avec l'abréviation
-      dispatch(addEmployee()); // Ajouter l'employé à la liste des employés
-      dispatch(resetFormData()); // Réinitialiser le formulaire
-      dispatch(setFormSubmitted(true));
+      dispatch(addEmployee()); // Ajoute l'employé à la liste des employés
+      dispatch(resetFormData()); // Réinitialise le formulaire
+      //   dispatch(setFormSubmitted(true));
     }
 
     return isValid;
@@ -59,7 +64,7 @@ const Form = () => {
         <h2 className="text-xl font-semibold mb-4">Create Employee</h2>
         <Link
           to="/Tab"
-          className="text-pink-500 hover:text-pink-700  mb-4 block underline"
+          className="text-pink-700 hover:text-pink-900  mb-4 block underline"
         >
           View Current Employees
         </Link>
@@ -82,20 +87,24 @@ const Form = () => {
           onChange={handleChange}
           error={errors.lastName}
         />
-        <DatePickerContainer
-          label="Date of Birth"
-          error={errors.dateOfBirth}
-          value={formData.dateOfBirth}
-          disableFutureDates={true}
-          onDateChange={(date) => dispatch(setFormData({ dateOfBirth: date }))}
-        />
-        <DatePickerContainer
-          label="Start Date"
-          error={errors.startDate}
-          value={formData.startDate}
-          disablePastDates={false}
-          onDateChange={(date) => dispatch(setFormData({ startDate: date }))}
-        />
+        <Suspense fallback={<div>Loading date picker...</div>}>
+          <DatePickerContainer
+            label="Date of Birth"
+            error={errors.dateOfBirth}
+            value={formData.dateOfBirth}
+            disableFutureDates={true}
+            onDateChange={(date) =>
+              dispatch(setFormData({ dateOfBirth: date }))
+            }
+          />
+          <DatePickerContainer
+            label="Start Date"
+            error={errors.startDate}
+            value={formData.startDate}
+            disablePastDates={false}
+            onDateChange={(date) => dispatch(setFormData({ startDate: date }))}
+          />
+        </Suspense>
         <fieldset className="border border-gray-200 p-4 rounded-lg">
           <legend className="text-lg font-semibold px-4">Address</legend>
           <InputField
@@ -139,7 +148,9 @@ const Form = () => {
           options={departments}
           error={errors.department}
         />
-        <ModaleButton validateForm={validateForm} />
+        <Suspense fallback={<div>Loading button...</div>}>
+          <ModaleButton validateForm={validateForm} />
+        </Suspense>
       </form>
     </div>
   );

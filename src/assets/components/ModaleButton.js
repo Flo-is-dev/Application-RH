@@ -24,7 +24,7 @@ const ModaleButton = ({ validateForm }) => {
       <button
         type="submit"
         onClick={handleClick}
-        className="w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-2 rounded-md shadow-md transition duration-300"
+        className="w-full bg-pink-700 hover:bg-pink-900 text-white font-semibold py-2 rounded-md shadow-md transition duration-300"
       >
         Save
       </button>

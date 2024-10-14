@@ -12,7 +12,7 @@ const Tab = () => {
       </div>
       <Link
         to="/"
-        className="text-pink-500 hover:text-pink-700  mb-4 block underline"
+        className="text-pink-700 hover:text-pink-900  mb-4 block underline"
       >
         Home
       </Link>

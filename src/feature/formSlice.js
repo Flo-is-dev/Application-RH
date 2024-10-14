@@ -14,7 +14,9 @@ const initialState = {
   },
   errors: {},
   isFormSubmitted: false,
+  // TODO ajouter mock de départ dans inital state
   employees: [],
+  //   TODO pourquoi on a employees? Ne peut -on pas y ajouter ici le mockk?
 };
 
 const formSlice = createSlice({
@@ -27,21 +29,20 @@ const formSlice = createSlice({
     setErrors: (state, action) => {
       state.errors = { ...action.payload };
     },
-    setFormSubmitted: (state, action) => {
-      state.isFormSubmitted = action.payload;
-    },
+    // setFormSubmitted: (state, action) => {
+    //   state.isFormSubmitted = action.payload;
+    // },
     resetFormData: (state) => {
       state.formData = initialState.formData;
-      state.errors = {}; // Réinitialise les erreurs aussi si nécessaire
-      state.isFormSubmitted = false; // Réinitialise l'état de soumission
+      state.errors = {};
+      state.isFormSubmitted = false;
     },
     addEmployee: (state) => {
       const newEmployee = {
         ...state.formData,
-        key: Date.now(), // Utilise le timestamp actuel pour générer un id unique
+        key: Date.now(),
       };
       state.employees.unshift(newEmployee);
-      // Ajoute les données du formulaire à la liste des employés + persiste avec ReduxPersiste
     },
   },
 });
@@ -49,7 +50,7 @@ const formSlice = createSlice({
 export const {
   setFormData,
   setErrors,
-  setFormSubmitted,
+  //   setFormSubmitted,
   resetFormData,
   addEmployee,
 } = formSlice.actions;
